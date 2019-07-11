@@ -1,16 +1,7 @@
 
 <template>
     <div>
-        <div id="homePageHeader">
-            <div class="moreBar"></div>
-            <h1 class="headerTitle">VMUSICJIN</h1>
-            <div class="search"></div>
-        </div>
-        <div id="homePageNav">
-            <div class="recmd"><span>推荐</span></div>
-            <div class="rank"><span>排行</span></div>
-            <div class="singer"><span>歌手</span></div>
-        </div>
+        
         <div class="homePageCarouselBacBox">
             <div class="carousel">
             
@@ -36,6 +27,7 @@
     </div>
 </template>
 <script>
+    
     export default{   //导出默认对象
         data(){           //当前组件共享数据
             return{}     //数据
