@@ -16,6 +16,7 @@
         },
         components:{
             "homepageheader":HomePageHeader,
+            "homepageindex1":HomePageIndex1,
             "homepageindex2":HomePageIndex2
         }
     }
