@@ -1,7 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
-
+import HomePageHeader from "./components/subComponents/HomePageHeader"
+import HomePage from "./components/HomePage"
 
 Vue.use(Router)
 
@@ -11,6 +12,16 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home
+    },
+    {
+      path: '/HomePageHeader',
+      name: 'HomePageHeader',
+      component: HomePageHeader
+    },
+    {
+      path: '/HomePage',
+      name: 'HomePage',
+      component: HomePage
     },
     
     {
@@ -23,3 +34,4 @@ export default new Router({
     }
   ]
 })
+

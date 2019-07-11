@@ -1,16 +1,12 @@
 <template>
     <div>
-        <homepageheader></homepageheader>
+        唯一的根元素
     </div>
 </template>
 <script>
-    import HomePageHeader from "./subComponents/HomePageHeader"
     export default{   //导出默认对象
         data(){           //当前组件共享数据
             return{}     //数据
-        },
-        components:{
-            "homepageheader":HomePageHeader
         }
     }
 </script>
