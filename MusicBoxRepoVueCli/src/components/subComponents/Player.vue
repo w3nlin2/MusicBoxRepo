@@ -6,7 +6,7 @@
        <div class="singerInfo">
            <!--头部 返回图标+歌手 -->
            <div class="tback">
-             <img src="../../static/img/back.png">
+             <img src="../../assets/homePageImages/back.png">
              <span>歌手</span>
            </div>
            <!-- 底部歌手名称 -->
@@ -29,16 +29,16 @@
       <!-- 底部播放器 -->
      <div class="play-music">
       <div class="songInfo" @click="toLyrics">
-          <img src="../../static/img/list-6.jpg">
+          <img src="../../assets/homePageImages/list-1.jpg">
           <div class="Title">
             <span class="title">I need your love</span>
              <span class="singer">calvin harris / ellie goulding</span>
           </div>
       </div>
       <div class="player">
-        <div><img src="../../static/img/more.png"></div>
-        <div><img src="../../static/img/play-red.png"></div>
-        <div><img src="../../static/img/next-red.png"></div>
+        <div><img src="../../assets/homePageImages/more.png"></div>
+        <div><img src="../../assets/homePageImages/play-red.png"></div>
+        <div><img src="../../assets/homePageImages/next-red.png"></div>
       </div>
     </div>
   </div>
@@ -81,7 +81,7 @@ export default {
      /* 歌手信息背景图片 文字颜色样式 */
      .singerInfo{
       height:40vh;
-      background:url(../../static/img/dzq.jpg) no-repeat 50%;
+      background:url(../../assets/homePageImages/dzq.jpg) no-repeat 50%;
       background-size:cover;
       color:#f5f5f5;
       display: flex;
@@ -133,7 +133,7 @@ export default {
      .play-icon{
          width:20px;
          height:20px;
-         background:url(../../static/img/paly.png)  no-repeat center center;
+         background:url(../../assets/homePageImages/paly.png)  no-repeat center center;
          background-size:100%;
          margin:3px 15px 3px 8px;
      }

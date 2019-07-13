@@ -2,18 +2,18 @@
   <div class="lyric">
     <div class="header">
       <div class="back">
-        <img src="../../static/img/back.png">
+        <img src="../../assets/homePageImages/back.png">
       </div>
       <div class="Title">
         <span class="title">I need your love</span>
         <span class="singer">calvin harris / ellie goulding</span>
       </div>
       <div class="share">
-        <img src="../../static/img/share.png">
+        <img src="../../assets/homePageImages/share.png">
       </div>
     </div>
     <div class="turntable">
-      <img src="../../static/img/list-1.jpg">
+      <img src="../../assets/homePageImages/list-1.jpg">
     </div>
     <div class="music-lrc">
        <div class="lyricWrap">
@@ -32,19 +32,19 @@
       </div>
       <div class="player">
         <div class="loop">
-          <img src="../../static/img/loop.png">
+          <img src="../../assets/homePageImages/loop.png">
         </div>
         <div class="prev">
-          <img src="../../static/img/next.png">
+          <img src="../../assets/homePageImages/next.png">
         </div>
         <div class="play">
-          <img src="../../static/img/play-w.png">
+          <img src="../../assets/homePageImages/play-w.png">
         </div>
         <div class="next">
-          <img src="../../static/img/next.png">
+          <img src="../../assets/homePageImages/next.png">
         </div>
         <div class="more">
-          <img src="../../static/img/more-w.png">
+          <img src="../../assets/homePageImages/more-w.png">
         </div>
       </div>
     </div>
@@ -68,7 +68,7 @@ export default {
 /* 界面高度背景图片设置 */
 .lyric {
   height: 100vh;
-  background: url("../../static/img/playerbg4.jpg");
+  background: url("../../assets/homePageImages/playerbg4.jpg");
   background-position: cover;
   background-size: 100%;
   position: relative;
@@ -93,7 +93,7 @@ export default {
   top: 20%;
   left: 50%;
   margin-left: -150px;
-  background: url("../../static/img/default.png") no-repeat;
+  background: url("../../assets/homePageImages/default.png") no-repeat;
   background-size: 100%;
   border-radius: 50%;
   text-align: center;
