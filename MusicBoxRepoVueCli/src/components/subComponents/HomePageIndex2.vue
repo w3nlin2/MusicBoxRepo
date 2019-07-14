@@ -2,28 +2,65 @@
     <div>
         <ul class="homePageIndex2Box">
             <li class="homePageIndex2Box_item">
-              <div>img</div>
+              <div><img src="./../../assets/homePageImages/list-6.jpg"></div>
               <ol><li>So funny-Xeris</li><li>FAITH ORANGE - OranGe</li><li>Bring That Sh!t Back -J.W.</li></ol>  
             </li>
         </ul>
         <ul class="homePageIndex2Box">
             <li class="homePageIndex2Box_item">
-              <div>img</div>
+              <div><img src="./../../assets/homePageImages/list-6.jpg"></div>
               <ol><li>So funny-Xeris</li><li>FAITH ORANGE - OranGe</li><li>Bring That Sh!t Back -J.W.</li></ol>  
             </li>
         </ul>
         <ul class="homePageIndex2Box">
             <li class="homePageIndex2Box_item">
-              <div>img</div>
+              <div><img src="./../../assets/homePageImages/list-6.jpg"></div>
               <ol><li>So funny-Xeris</li><li>FAITH ORANGE - OranGe</li><li>Bring That Sh!t Back -J.W.</li></ol>  
             </li>
         </ul>
         <ul class="homePageIndex2Box">
             <li class="homePageIndex2Box_item">
-              <div>img</div>
+              <div><img src="./../../assets/homePageImages/list-6.jpg"></div>
               <ol><li>So funny-Xeris</li><li>FAITH ORANGE - OranGe</li><li>Bring That Sh!t Back -J.W.</li></ol>  
             </li>
         </ul>
+        <ul class="homePageIndex2Box">
+            <li class="homePageIndex2Box_item">
+              <div><img src="./../../assets/homePageImages/list-6.jpg"></div>
+              <ol><li>So funny-Xeris</li><li>FAITH ORANGE - OranGe</li><li>Bring That Sh!t Back -J.W.</li></ol>  
+            </li>
+        </ul>
+        <ul class="homePageIndex2Box">
+            <li class="homePageIndex2Box_item">
+              <div><img src="./../../assets/homePageImages/list-6.jpg"></div>
+              <ol><li>So funny-Xeris</li><li>FAITH ORANGE - OranGe</li><li>Bring That Sh!t Back -J.W.</li></ol>  
+            </li>
+        </ul>
+        <ul class="homePageIndex2Box">
+            <li class="homePageIndex2Box_item">
+              <div><img src="./../../assets/homePageImages/list-6.jpg"></div>
+              <ol><li>So funny-Xeris</li><li>FAITH ORANGE - OranGe</li><li>Bring That Sh!t Back -J.W.</li></ol>  
+            </li>
+        </ul>
+        <ul class="homePageIndex2Box">
+            <li class="homePageIndex2Box_item">
+              <div><img src="./../../assets/homePageImages/list-6.jpg"></div>
+              <ol><li>So funny-Xeris</li><li>FAITH ORANGE - OranGe</li><li>Bring That Sh!t Back -J.W.</li></ol>  
+            </li>
+        </ul>
+        <ul class="homePageIndex2Box">
+            <li class="homePageIndex2Box_item">
+              <div><img src="./../../assets/homePageImages/list-6.jpg"></div>
+              <ol><li>So funny-Xeris</li><li>FAITH ORANGE - OranGe</li><li>Bring That Sh!t Back -J.W.</li></ol>  
+            </li>
+        </ul>
+        <ul class="homePageIndex2Box">
+            <li class="homePageIndex2Box_item">
+              <div><img src="./../../assets/homePageImages/list-6.jpg"></div>
+              <ol><li>So funny-Xeris</li><li>FAITH ORANGE - OranGe</li><li>Bring That Sh!t Back -J.W.</li></ol>  
+            </li>
+        </ul>
+        
     </div>
 </template>
 <script>
@@ -51,30 +88,29 @@ ul.homePageIndex2Box{
 li.homePageIndex2Box_item{
     margin:5px 0;
     width:100%;
-    height:160px;
+    height:100px;
   
     display:inline-block;    
     display:flex;   
 }
 li.homePageIndex2Box_item>div{
-    width:160px;
-    height:160px;
+    width:100px;
+    height:100px;
     background:red;
     border-radius:5px;
 }
-li.homePageIndex2Box_item>ol{
-    
+li.homePageIndex2Box_item>div>img{
+    width:100%;
     height:100%;
-    
-    
+}
+
+li.homePageIndex2Box_item>ol{
+    padding-left:0;
+    margin-left: 40px;
     display:flex;
     flex-direction:column;
-    justify-content:space-around;
-    
+    justify-content: space-around;
+    align-items: left;
 }
-li.homePageIndex2Box_item>ol>li{
-    
-    text-align:left;
-    padding-left:10px;
-}
+
 </style>
