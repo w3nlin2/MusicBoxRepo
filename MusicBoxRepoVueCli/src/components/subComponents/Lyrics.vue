@@ -1,7 +1,7 @@
 <template>
   <div class="lyric">
     <div class="header">
-      <div class="back">
+      <div class="back" @click="back">
         <img src="../../assets/homePageImages/back.png">
       </div>
       <div class="Title">
@@ -61,7 +61,12 @@ export default {
       offset: 0
     };
   },
-  methods: {}
+  methods: {
+    back(){
+      this.$router.push({path:'./Player'})
+    }
+
+  }
 };
 </script>
 <style scope>
