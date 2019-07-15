@@ -87,7 +87,7 @@ div.item{
     width: 100%!important;
     height: 100%!important;
 }
-img{
+div.item>img{
     width: 100%!important;
     height: 100%!important;
 }
