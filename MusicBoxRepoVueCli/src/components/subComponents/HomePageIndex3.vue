@@ -62,7 +62,7 @@ import { setInterval, clearInterval } from 'timers';
                     for(var i=0;i<$(".songTargetUl").length;i++){
                         $(".songIndexUl>li>a").eq(i).css({color:"",background:""})
                         
-                if($(window).scrollTop()>=$(".songTargetUl").eq(i).offset().top){
+                if($(window).scrollTop()>=$(".songTargetUl").eq(i).offset().top-120){
                     arr.push(i);
                 }
             }
