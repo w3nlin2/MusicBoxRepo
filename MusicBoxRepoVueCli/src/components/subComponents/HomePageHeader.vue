@@ -57,12 +57,7 @@ div#homePageHeader>.moreBar{
     height:60px;
     
 }
-div#homePageHeader>.moreBar>img{
-    margin-top: 25%;
-    width:50%;
-    height:50%;
-}
-div#homePageHeader>.search>img{
+div#homePageHeader>.moreBar>img,div#homePageHeader>.search>img{
     margin-top: 25%;
     width:50%;
     height:50%;
