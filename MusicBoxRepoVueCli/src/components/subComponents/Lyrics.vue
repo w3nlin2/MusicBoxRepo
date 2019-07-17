@@ -12,16 +12,16 @@
         <img src="../../assets/homePageImages/share.png">
       </div>
     </div>
-    <div class="turntable">
-      <img src="../../assets/homePageImages/list-1.jpg">
+    <div class="turntable" id="turntable" @click="turntable">
+      <img  src="../../assets/homePageImages/list-1.jpg">
     </div>
-    <div class="music-lrc">
+    <div class="music-lrc" id="music-lyc" @click="musicLyc">
        <div class="lyricWrap">
-
+         暂无歌词
        </div>
     </div>
     <div class="audioOff">
-      <audio id="audio" :src="audioURl"></audio>
+      <audio id="music" :src="audioUrl"  type="audio/mp3" controls preload  :paused="ispaused"></audio>
       <div class="progress">
         <mt-range v-model="rangeValue" :value="rangeValue" :step="10" :max="offset"></mt-range>
         <div class="duration">
@@ -31,20 +31,20 @@
         <div class="cover"></div>
       </div>
       <div class="player">
-        <div class="loop">
-          <img src="../../assets/homePageImages/loop.png">
+        <div class="loop" @click="loop">
+          <img src="../../assets/homePageImages/dq1.png">
         </div>
         <div class="prev">
           <img src="../../assets/homePageImages/next.png">
         </div>
-        <div class="play">
+        <div class="play" @click="play4">
           <img src="../../assets/homePageImages/play-w.png">
         </div>
         <div class="next">
           <img src="../../assets/homePageImages/next.png">
         </div>
-        <div class="more">
-          <img src="../../assets/homePageImages/more-w.png">
+        <div class="shouc" @click="shoucang">
+          <img src="../../assets/homePageImages/sc.png">
         </div>
       </div>
     </div>
@@ -54,20 +54,75 @@
 export default {
   data() {
     return {
-      audioURl: "../../static/music/陶辚竹 - 一直很安静",
-      rangeValue: 0, //进度
+      audioUrl:require('../../assets/songs/123_mu_tou_ren.mp3'),
+      rangeValue:0, //进度
       starttime: "00:00", //正在播放时长
       duration: "01:03", //总时长
-      offset: 0
+      offset: 0,
+      ispaused:true
     };
   },
   methods: {
+    // 点击返回时的事件
     back(){
       this.$router.push({path:'./Player'})
     }
-
+    // 点击转盘时显示歌词
+    ,turntable(e){
+       e.currentTarget.style.display="none";
+       var lyc=document.getElementById("music-lyc");
+       lyc.style.display="block";
+    },
+    // 点击歌词时显示转盘
+    musicLyc(e){
+        e.currentTarget.style.display="none";
+        var lyc=document.getElementById("turntable");
+       lyc.style.display="block";
+    },
+    // play4 点击事件，当图片播放时候，改变图标，控制中间转盘状态 
+   play4(e){
+     var el=e.currentTarget;
+     var playImg=el.firstElementChild;
+     var audio=document.getElementById("music");
+     var turntable=document.getElementById("turntable");
+     var turnImg=turntable.firstElementChild;
+     if(audio.paused){
+        playImg.src=require("../../assets/homePageImages/stopPlay.png");
+          audio.play();
+        turnImg.classList.add("turnImg");
+     }else{
+        playImg.src=require("../../assets/homePageImages/play-w.png");
+        audio.pause();
+         turnImg.classList.remove("turnImg");
+     }
+    },
+    // 点击收藏时的图标切换
+     shoucang(e){
+        var el=e.currentTarget;
+        var sc=el.firstElementChild;
+       if(sc.src==require('../../assets/homePageImages/sc.png')){
+         sc.src=require('../../assets/homePageImages/sc1.png');
+       }else{
+         sc.src=require('../../assets/homePageImages/sc.png');
+       }
+  },
+  // 点击时实现歌曲循环
+  loop(e){
+    var audio=document.getElementById("music");
+    var loopImg=e.currentTarget.firstElementChild;
+    if(loopImg.src==require('../../assets/homePageImages/dq1.png')){
+         loopImg.src=require('../../assets/homePageImages/dq2.png');
+         audio.loop="loop";  
+    }else{
+         loopImg.src=require('../../assets/homePageImages/dq1.png');
+         audio.loop=false;
+    }
   }
-};
+
+},//method的结束
+
+
+}
 </script>
 <style scope>
 /* 界面高度背景图片设置 */
@@ -91,7 +146,7 @@ export default {
 }
 /* 中间转盘*/
 .turntable {
-  display: none;
+  /* display: none; */
   width: 300px;
   height: 300px;
   position: absolute;
@@ -102,7 +157,7 @@ export default {
   background-size: 100%;
   border-radius: 50%;
   text-align: center;
-  border: 1px solid red;
+  /* border: 1px solid red; */
 }
 /* 转盘中的图片位置调整 */
 .turntable img {
@@ -110,10 +165,26 @@ export default {
   margin-top: 15px;
   border-radius: 50%;
 }
+/* 转盘中的图片位置调整 */
+.turntable>img {
+  width: 270px;
+  margin-top: 15px;
+  border-radius: 50%;
+}
+.turnImg{
+   animation:rotateImg 8s linear infinite; 
+}
+ @keyframes rotateImg {
+  0% {transform : rotate(0deg);}
+  100% {transform : rotate(360deg);}
+}
+
+
 /* 歌词 */
 .music-lrc{
+  display:none;
   color:#f5f5f5;
-  border: 1px solid red;
+  /* border: 1px solid red; */
   position: absolute;
   top: 13%;
   width: 80%;
@@ -183,5 +254,10 @@ export default {
 /* 上一首图标样式调整 */
 .prev img{
    transform: rotateY(180deg); 
+}
+.lyricWrap{
+  text-align:center;
+  margin-top:20px;
+  font-size:18px;
 }
 </style>
