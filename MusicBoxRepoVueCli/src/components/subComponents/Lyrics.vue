@@ -5,8 +5,8 @@
         <img src="../../assets/homePageImages/back.png">
       </div>
       <div class="Title">
-        <span class="title">I need your love</span>
-        <span class="singer">calvin harris / ellie goulding</span>
+        <span class="title">{{artist}}</span>
+        <span class="singer">{{song_name}}</span>
       </div>
       <div class="share">
         <img src="../../assets/homePageImages/share.png">
@@ -17,18 +17,26 @@
     </div>
     <div class="music-lrc" id="music-lyc" @click="musicLyc">
        <div class="lyricWrap">
-         暂无歌词
+         {{lrc_name}}
        </div>
     </div>
     <div class="audioOff">
-      <audio id="music" :src="audioUrl"  type="audio/mp3" controls preload  :paused="ispaused"></audio>
-      <div class="progress">
-        <mt-range v-model="rangeValue" :value="rangeValue" :step="10" :max="offset"></mt-range>
-        <div class="duration">
+      <audio id="music" :src="audioUrl"  type="audio/mp3" controls preload  
+       @canplay="getDuration" @timeupdate="updateTime" ref="audio" hidden
+      ></audio>
+      <div class="progress-bar" ref="progressBar">
+       <div class="bar-inner">
+        <div class="progress" ref="progress"></div>
+        <div class="progress-btn-wrapper" ref="progressBtn">
+           <div class="progress-btn" @touchstart="start"
+           @touchmove="move" @touchend="end"
+           ></div>
+        </div>
+       </div>
+      </div>
+      <div class="duration">
           <span>{{starttime}}</span>
           <span class="right-timer">{{duration}}</span>
-        </div>
-        <div class="cover"></div>
       </div>
       <div class="player">
         <div class="loop" @click="loop">
@@ -51,18 +59,41 @@
   </div>
 </template>
 <script>
+// 1.1引入json文件[数据]
+// json文件引入当前项目 js obj
+import musicjson from '../../assets/json/content.json' 
 export default {
   data() {
     return {
-      audioUrl:require('../../assets/songs/123_mu_tou_ren.mp3'),
+      audioUrl:require('../../assets/songs/ai_la_la.mp3'),
       rangeValue:0, //进度
       starttime: "00:00", //正在播放时长
       duration: "01:03", //总时长
-      offset: 0,
-      ispaused:true
+      totalTime:"",
+      tstart:"",//进度条开始touchstart的X距离
+      tend:"",//进度条开始touchend的X距离
+      flags: false,
+       nx: '',//拖拽移动的距离
+       dx: '', //元素边框外侧到父元素左侧距离
+       xPum: '',//元素移动的水平距离(left)
+       list:musicjson,//清单
+       artist:"" ,//歌手
+       song_name:"",//歌名
+       lrc_name:""//歌词
     };
   },
   methods: {
+     loadMore(){
+        var musicLyc=this.list.data;
+        console.log( musicLyc);
+        var lrcname=this.audioUrl.split(".")[0].split("/")[2];
+        for(var lyc of musicLyc){
+           if(lrcname===lyc.lrc_name){
+             this.artist=lyc.artist;
+             this.song_name=lyc.song_name;         
+           }
+        }
+     },
     // 点击返回时的事件
     back(){
       this.$router.push({path:'./Player'})
@@ -117,12 +148,98 @@ export default {
          loopImg.src=require('../../assets/homePageImages/dq1.png');
          audio.loop=false;
     }
-  }
+  },
 
-},//method的结束
+ getDuration() {
+      //  console.log(this.$refs.audio.duration); //此时可以获取到duration
+      //  this.duration = this.$refs.audio.duration;
+                 //处理时长
+                var time =this.$refs.audio.duration;
+                this.totalTime=time;
+                //分钟
+                var minute = time / 60;
+                var minutes = parseInt(minute);
+                if (minutes < 10) {
+                    minutes = "0" + minutes;
+                }
+                //秒
+                var second = time % 60;
+                var seconds = Math.round(second);
+                if (seconds < 10) {
+                    seconds = "0" + seconds;
+                }
+                this.duration=minutes+":"+seconds;
+    },
+    updateTime(e) {
+       var currentTime = e.target.currentTime;  //获取audio当前播放时间
+      //  console.log(time);
+       var minute = currentTime / 60;
+       var minutes = parseInt(minute);
+       if (minutes < 10) {
+            minutes = "0" + minutes;
+        }
+        //秒
+       var second = currentTime % 60;
+         var seconds = Math.round(second);
+        if (seconds < 10) {
+           seconds = "0" + seconds;
+        }
+       this.starttime=minutes+":"+seconds;
+      var progress=document.getElementsByClassName("progress")[0];
+      var turntable=document.getElementById("turntable");
+      var playImg=document.getElementsByClassName("play")[0].firstChild;
+      var proBtn=document.getElementsByClassName("progress-btn")[0];
+      var img=turntable.firstChild;
+      // console.log(currentTime/this.totalTime)
+      progress.style.width=parseInt(currentTime*300/this.totalTime)+"px";
+      proBtn.style.left=parseInt(currentTime*300/this.totalTime)+"px";
+      if(e.target.ended){
+           progress.style.width=0;
+           this.starttime="00:00";
+           img.classList.remove("turnImg");
+           playImg.src=require("../../assets/homePageImages/play-w.png");
+           proBtn.style.left=0;
 
+      }
+    },
+    start(e){
+      var proBtn=document.getElementsByClassName("progress-btn")[0];
+      this.flags = true;
+      var touch = event.touches[0];
+      this.tstart=touch.clientX
+      // console.log(touch)
+      this.dx = proBtn.offsetLeft;//元素到浏览器的左侧距离
+      // console.log(this.dx)
+    },
+    move(e){
+      //阻止页面的滑动默认事件
+      e.preventDefault();
+      if(this.flags){
+      var touch = event.touches[0];
+      this.nx = touch.clientX - this.tstart;//拖拽移动的距离     
+      // console.log(this.nx)
+      if(this.nx+this.dx>=0&&this.nx+this.dx<=300){
+       this.xPum = this.dx+this.nx;//控制元素左右移动距离
+       var proBtn=document.getElementsByClassName("progress-btn")[0];
+        proBtn.style.left=parseInt(this.xPum)+"px";
+      }
+    }
+    },
+    end(e){
+        this.flags = false;  
+        var xPum=this.xPum;
+        var total=this.totalTime;
+        var ctime=total*xPum/300 //进度条长度300
+        music.currentTime=ctime;
+      },
+          
+    },//method的结束
+    created(){
+       this.loadMore();
+    }
 
-}
+};
+// 在模板渲染成html后调用，通常是初始化页面完成后，再对html的dom节点进行一些需要的操作。
 </script>
 <style scope>
 /* 界面高度背景图片设置 */
@@ -190,74 +307,78 @@ export default {
   width: 80%;
   height: 60%;
   left:10%;
+  text-align:center;
   overflow:hidden;
 }
 /*  */
 
 /* 底部进度条样式和播放器的样式 */
-.audioOff {
+ .audioOff {
   position: fixed;
   bottom: 8%;
   width: 80%;
   left: 50%;
   margin-left: -40%;
-  padding: 0.4rem 0;
-  /* border:1px solid red; */
-}
-/* 进度条样式 */
-.progress {
-  width: 95%;
-  margin: 0 auto;
-  flex: 1; /* 所有弹性盒模型对象的子元素都有相同的长度 */
-  font-size: 0.3rem;
-  position: relative;
-}
-/* 播放时进度条的进度样式 */
-.cover {
-  width: 0.28rem;
-  height: 0.1rem;
-  position: absolute;
-  background: rgb(0, 110, 255);
-  top: 0.9rem;
-  left: 0rem;
-}
-/* 进度条指示器原点的样式和位置 */
-.mt-range-thumb {
-  background-color: #fff;
-  position: absolute;
-  left: 0;
-  top: 0.6rem !important;
-  width: 0.6rem !important;
-  height: 0.6rem !important;
-  border-radius: 50%;
-  cursor: move;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
-  z-index: 999;
-}
-/* 进度条底下时间的样式 */
-.duration {
-  color: #f5f5f5;
-  display: flex;
-  justify-content: space-between;
-}
-/*最后时长的时间位置调整*/
-.right-timer {
-  margin-right: 0.27rem;
-}
+  padding: 0.4rem 0;} 
+ 
 /* 播放器位置调整，弹性布局横向排列 */
 .audioOff .player {
   width: 100%;
   display: flex;
   justify-content: space-between;
 }
-/* 上一首图标样式调整 */
-.prev img{
-   transform: rotateY(180deg); 
-}
-.lyricWrap{
-  text-align:center;
-  margin-top:20px;
-  font-size:18px;
-}
+ /*进度条容器的高度*/
+	 .progress-bar{
+	     height:30px;
+       width:80vw;
+			 background:none;
+       /* border:1px solid red; */
+	 }
+    /* 进度条：宽度 位置*/
+    .bar-inner{
+		  position: relative;
+      top:14px;
+      height:3px;
+      background: rgba(255,255,255, 0.6);
+		}
+      /* 播放进度完成进度条颜色     */
+      .progress{
+			 position: absolute;
+       height:3px;
+			 /* width:50%; */
+       background :rgb(64, 131, 207);
+				/* border:1px solid lightblue; */
+			}
+/* */
+      .progress-btn-wrapper{
+			  position: absolute;
+        left: 0px;
+        top: -5px;
+        width: 30px;
+        height: 30px;
+			
+			}  
+       /* 进度球的颜色样式位置     */ 
+        .progress-btn{
+          position:relative;
+          box-sizing: border-box;
+          width :12px;
+          height :12px;
+          border-radius :50%;
+          background:#fff;
+			}
+      .duration{
+           width:80vw;
+           display:flex;
+          color:#fff;
+          font-size:12px;
+          justify-content: space-between; 
+
+      }
+
+    /* 上一首调整方向 */
+   .prev img{
+    transform: rotateY(180deg); 
+    }
+
 </style>

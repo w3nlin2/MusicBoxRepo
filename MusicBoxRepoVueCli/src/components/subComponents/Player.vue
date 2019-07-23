@@ -440,7 +440,7 @@ export default {
     /* 弹性布局横向排列 */
     .songInfo,.player{
         display:flex;
-        /* width:50%; */
+        width:50%; 
     }
     /* 弹性布局横线排列 靠右侧方向 */
     .player{
